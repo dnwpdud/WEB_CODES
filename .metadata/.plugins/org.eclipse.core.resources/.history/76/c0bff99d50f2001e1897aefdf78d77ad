@@ -1,0 +1,46 @@
+<%@page import="edu.web.member.MemberDAO"%>
+<%@page import="edu.web.member.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+		// TODO : 회원 정보 출력
+		// TODO : 회원 수정 버튼 생성(경로 : memberUpdate.jsp)
+		// TODO : 회원 탈퇴 버튼 생성(경로 : delete.do)
+		
+		request.setCharacterEncoding("UTF-8");
+	
+		String userid = (String) session.getAttribute("userid");
+	
+		if(userid != null){
+			out.println("<h2>"+ userid +"님, 환영합니다.</h2>");
+			
+			//request.getAttribute("member");
+			//System.out.println(request.getAttribute("member"));
+			//response.get
+			//MemberVO vo = new MemberVO();
+			
+	
+		} else {
+			out.print("<script>alert('로그인 해주세요!!')</script>");
+			out.print("<script>location.href='login.jsp'</script><br>");
+		}
+	
+	
+	%>
+	
+	<form action="memberUpdate.jsp" method="post">
+	<input type="submit" value="회원수정">
+	</form>
+	
+	<form action="delete.do" method="post">
+	<input type="submit" value="회원탈퇴">
+	</form>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EL 연산자</title>
+</head>
+<body>
+	<%
+		String nullStr = null;
+		String emptStr = "";
+		String[] zeroArray = new String[0];
+		ArrayList<String> emptList = new ArrayList<>();
+		
+		pageContext.setAttribute("nullStr", nullStr);
+		pageContext.setAttribute("emptStr", emptStr);
+		pageContext.setAttribute("zeroArray", zeroArray);
+		pageContext.setAttribute("emptList", emptList);
+		
+		
+	
+	%>
+	
+	<%--
+	EL 연산자
+	- 기본적인 연산자는 자바와 동일
+	- '/'와 div는 동일한 연산자
+	
+	 --%>
+	 
+	<h1>EL 연산자</h1>
+	<h2>산술 연산자</h2>
+	더하기 : ${20 + 10}<br>
+	빼기 : ${'20'- '10'}<br>
+	몫 : ${'40' div '6' }<br>
+	나머지 : ${40 mod 6 }<br>
+
+</body>
+</html>

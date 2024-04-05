@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HW3</title>
+</head>
+<body>
+	<h1>회원가입 페이지</h1>
+	아이디 : <br>
+	<input type="text" id='id'><br>
+	비밀번호 : <br>
+	<input type="password" id='password'><br>
+	비밀번호 확인 : <br>
+	<input type="password" id='passwordOk'><br>
+	이름 : <br> 
+	<input type="text" id='name'><br>
+	생일 : <br>
+	<input type="date" id="date"><br>
+	이메일 : <br>
+	<input type="email" id='email'><br>
+	<button onclick="insert()">가입하기</button>
+	<!-- 
+	 <button onclick="selectAll()">전체검색</button>
+	-->
+	
+	<div id = 'output'></div>
+	<script type="text/javascript">
+		let manager; 
+		let managerList = new Array();
+		
+		let id = document.getElementById('id');
+		let password = document.getElementById('password');
+		let passwordOk = document.getElementById('passwordOk');
+		
+		
+		let name = document.getElementById('name');
+		let date = document.getElementById('date');
+		let email = document.getElementById('email');
+		
+		function insert() {
+			
+			let idVal = id.value;
+			let passwordVal = password.value;
+			let passwordOkVal = passwordOk.value;
+			let nameVal = name.value;
+			let dateVal = date.value;
+			let emailVal = email.value;
+			
+			 if (idVal === '' || passwordVal === '' || passwordOkVal === '' || nameVal === '' || dateVal === '' || emailVal === '') {
+		            output.innerHTML = '모든 빈칸을 채워주세요. <br>';
+		            return;
+		        }
+			
+			if(idVal.length >= 5 && idVal.length <=20){
+				output.innerHTML += '사용 가능한 아이디 글자 수 입니다. <br>'; 
+				if(idVal == 'test1'){
+					output.innerHTML += '이미 사용중이거나 탈퇴한 아이디입니다. <br>'; 
+					return;
+				} else {
+					output.innerHTML += '사용 가능한 아이디 입니다. <br>';
+				}
+			} else {
+				output.innerHTML += '아이디 글자 수는 5 ~ 20자 입니다. <br>';
+				return;
+			}
+			
+			if(passwordVal.length >= 8 && passwordVal.length <= 16){
+				output.innerHTML += '사용 가능한 비밀번호가 글자 수 입니다. <br>'; 
+				if(passwordVal == passwordOkVal){
+					output.innerHTML += '비밀번호가 일치 합니다. <br>'; 
+				} else {
+					output.innerHTML += '비밀번호가 일치 하지않습니다. <br>'; 
+					return;
+				} 
+			} else {
+				output.innerHTML += '비밀번호 글자 수는 8 ~ 16자 입니다. <br>';
+				return;
+			}
+			
+			
+			manager = {
+					id : idVal,
+					password : passwordVal,
+					name : nameVal,
+					date : dateVal,
+					email : emailVal
+			};
+			console.log(manager);
+			managerList.push(manager);
+			alert('가입완료');
+			//selectAll();
+		} 
+			
+		/* 
+		function selectAll() {
+			output.innerHTML = ''; // div 텍스트 초기화
+	         for(x in managerList) {
+	            output.innerHTML += x + '번>'
+	            + ' 아이디 : ' + managerList[x].id + ' | '
+	            + '비밀번호 : ' + managerList[x].password + ' | '
+	            + '이름 : ' + managerList[x].name + ' | '
+	            + '생년월이 : ' + managerList[x].date + ' | '
+	            + '이메일 : ' + managerList[x].email + '<br>';
+	         }
+	         alert('전체 검색 완료!');
+		}
+		 */
+	</script>
+	
+	
+	
+	
+	
+	
+</body>
+</html>

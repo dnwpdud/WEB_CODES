@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- 모바일에서 표시될수 있도록 하는 태그로 사용 안 함 -->
+<title>장바구니 시스템</title>
+<link rel="stylesheet" href="styles.css"><!-- CSS역할 근데 사용안함 -->
+</head>
+<body>
+
+<h1>장바구니 프로그램</h1>
+
+<div id="cart-items">
+  <!-- 장바구니에 추가된 상품들이 여기에 표시됩니다. -->
+</div>
+
+<h2>선택할 수 있는 상품</h2>
+<div id="selectable-items">
+<label for="select-all-items">전체 선택</label><!-- 전체 선택을 클리하면 기능 하는 코드 -->
+<input type="checkbox" id="select-all-items" data-all-selected="false"><!-- 체크박스 형식으로 입력 받고 초기 값은 false이다. -->
+  <div data-name="호두그래놀라" data-price="6500">
+    <span>호두그래놀라 500g - 6,500원</span><!-- span는 스타일을추가 할 수 있는 기능으로 <p> 대신해도 크게 상관 없음 -->
+  </div>
+  <div data-name="현미그래놀라" data-price="6700">
+    <span>현미그래놀라 500g - 6,700원</span>
+  </div>
+  <div data-name="땅콩그래놀라" data-price="6500">
+    <span>땅콩그래놀라 500g - 6,500원</span>
+  </div>
+</div>
+
+<h2>선택한 상품</h2>
+<div id="selected-items">
+  <!-- 선택한 상품들이 여기에 표시됩니다. -->
+</div>
+
+<p>선택한 상품 개수: <span id="selected-item-count">0</span></p>
+<p>총 가격: <span id="total-price">0</span>원</p>
+<p>선택한 상품 구매 총 개수: <span id="selected-item-quantity">0</span></p>
+
+<script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    // 선택한 상품을 저장할 배열
+    var selectedItems = [];
+    var totalPrice = 0;
+
+    // 선택할 수 있는 상품에 대한 이벤트 핸들러
+    $('#selectable-items div').click(function() {// 해석 중
+        var productName = $(this).data('name');// 클릭한 상품의 이름 을 가져온다. data('name')는 data-name 가져온다.
+        var productPrice = parseFloat($(this).data('price'));// 클릭한 상품의을 가격을 가져온다.parseFloat()가저온게 문자열이면 숫자로 타입으로 바꿈
+        var isChecked = $(this).hasClass('selected');//클릭한 상품이 바구니로 이동 되면서 원래 상태의 true, false을 나타낸다.
+        //console.log(productName); 
+        //console.log(productPrice); 
+        //console.log(isChecked); 
+
+        if (!isChecked) {
+            var item = {
+                name: productName,
+                price: productPrice,
+                quantity: 1 // 수량 하나 부터 시작
+            };
+            addToSelectedItems(item);// 상품 종류 추가하는 함수
+           // $(this).addClass('selected'); // 디자인 기능 없어도 상관없음
+        } else {
+            removeFromSelectedItems(productName);// 이미 있는 상품을 클릭 했을때 삭제하는 기능
+            //$(this).removeClass('selected');
+        }
+    });
+
+    // 전체 선택/해제 버튼 클릭 이벤트 핸들러
+    $('#select-all-items').click(function() {
+        var isAllSelected = $(this).data('all-selected');// 데이터 접근
+        $('#selectable-items div').toggleClass('selected', !isAllSelected); // 전체검색 했을때 이미 선택한 상품은 냅두고 없는 상품은 추가하는 기능
+        $(this).data('all-selected', !isAllSelected);// 선택한 데이터가 모두 선택 되었는지 안되었는지 확인한다.// true, false로 출력함
+        if (!isAllSelected) {
+            $('#selectable-items div').each(function() {
+                var productName = $(this).data('name'); // 불러온 데이터 넣기
+                var productPrice = parseFloat($(this).data('price'));// 클릭한 상품의을 가격을 가져온다.parseFloat()가저온게 문자열이면 숫자로 타입으로 바꿈
+                var item = {// 선택한 상품의 초기 값
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1
+                };
+                addToSelectedItems(item);
+            });
+        } else {
+            $('#selected-items').empty();// 다시 선택했을 때 상품을 삭제하는 역할
+            selectedItems = [];// 전체 선택된 데이터을 저장
+            updateSelectedItemsView();
+        }
+    });
+
+    // 선택한 상품을 표시하는 함수
+    function updateSelectedItemsView() {
+        $('#selected-items').empty();// 다시 선택했을 때 상품을 삭제하는 역할
+        totalPrice = 0;
+        selectedItems.forEach(function(item, index) {
+            $('#selected-items').append('<div>' + item.name + ' - ' + item.price.toLocaleString() + '원 x ' + item.quantity +
+                '<button class="increase-quantity" data-index="' + index + '">+</button>' +
+                '<button class="decrease-quantity" data-index="' + index + '">-</button>' +
+                '<button class="remove-selected" data-name="' + item.name + '">삭제</button></div>');// 클릭했을때 생겨나는 상품들 추가
+            totalPrice += item.price * item.quantity; // 개수당 상품 가격 증가
+        });
+        $('#total-price').text(totalPrice.toLocaleString()); // totalPrice가져와서 정렬처리?
+        $('#selected-item-count').text(selectedItems.length); // 선택한 상품의 종류 총개수
+        var totalQuantity = selectedItems.reduce((acc, item) => acc + item.quantity, 0);// 선택한 상품의 현재 개수 
+        $('#selected-item-quantity').text(totalQuantity);
+        //console.log(selectedItems.length);
+    }
+
+    // 선택한 상품 추가 함수
+    function addToSelectedItems(item) {// 해석 완료
+        var existingItemIndex = selectedItems.findIndex(i => i.name === item.name);// findIndex에서 조건에 맞으면 인덱스 부여 틀리면 -1, i는 다른걸로 바뀌어도 된다.
+        //console.log(existingItemIndex); 로그 안뜬다.
+        if (existingItemIndex === -1) {// 왜-1일때 추가 되는지 알아봐야 함
+            selectedItems.push(item); // 배열에 새로 추가 
+        }
+        updateSelectedItemsView();
+    }
+
+    // 선택한 상품 삭제 함수
+    function removeFromSelectedItems(productName) {
+        selectedItems = selectedItems.filter(item => item.name !== productName);// 선택한 상품을 삭제하는 기능 // 잘모르겠음 어렵다.
+        updateSelectedItemsView();
+    }
+
+    // 선택한 상품 배열에서 상품 수량 증가 함수
+    $('#selected-items').on('click', '.increase-quantity', function() {
+        var index = $(this).data('index');
+        selectedItems[index].quantity++; // + 버튼을 눌었을때 index와 quantity++증가하는 형식이다.
+        updateSelectedItemsView();
+    });
+
+    // 선택한 상품 배열에서 상품 수량 감소 함수
+    $('#selected-items').on('click', '.decrease-quantity', function() {
+        var index = $(this).data('index');
+        if (selectedItems[index].quantity > 1) { // 1이상일 경우에만 실행 된다.
+            selectedItems[index].quantity--; // - 버튼을 눌었을때 index와 quantity--감소하는 형식이다.
+            updateSelectedItemsView();
+        }
+    });
+
+    // 선택한 상품 배열에서 상품 삭제 함수
+    $('#selected-items').on('click', '.remove-selected', function() { // 클릭 했을때 remove-selected 변화하는 
+        var productName = $(this).data('name');
+        removeFromSelectedItems(productName);
+        //$('#selectable-items div[data-name="' + productName + '"]').removeClass('selected'); 디자인 역할이라서 필요없음
+    });
+});
+</script>
+
+</body>
+</html>

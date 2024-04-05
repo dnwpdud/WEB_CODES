@@ -1,0 +1,7 @@
+package web.ch20.filter;
+
+import javax.servlet.http.HttpFilter;
+
+public class TestFilter extends HttpFilter{
+
+}

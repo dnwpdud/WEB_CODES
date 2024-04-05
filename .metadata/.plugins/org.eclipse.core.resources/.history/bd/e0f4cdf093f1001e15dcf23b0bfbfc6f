@@ -1,0 +1,16 @@
+package edu.web.member;
+
+public interface MemberDAO {
+	
+	// 회원 등록
+	public abstract int insert(MemberVO vo);
+	
+	// 회원 정보 검색
+	public abstract MemberVO select(String partNO);
+	
+	// 회원 정보 수정
+	public abstract int update(String partNO, MemberVO vo);
+	
+	// 회원 정보 삭제
+	public abstract int delete(String partNO);
+} // end MemberDAO

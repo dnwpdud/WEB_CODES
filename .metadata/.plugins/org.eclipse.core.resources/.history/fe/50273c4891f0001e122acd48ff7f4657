@@ -1,0 +1,18 @@
+<%@page import="java.util.Date"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Session</title>
+</head>
+<body>
+	<%
+		// session 객체 : session 범위에 존재하는 객체
+		
+		// 세션 생성 시간
+		Date createTime = new Date(session.getCreationTime())
+	%>
+</body>
+</html>

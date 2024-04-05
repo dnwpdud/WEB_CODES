@@ -1,0 +1,30 @@
+package web.ch14.servlet;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+// 문자열 url 정보 입력
+@WebServlet("/main")// annotation 방식
+public class MainServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    private static final String CLASSNAME
+    	= MainServlet.class.getName();// 클래스 위치와 이름 참조
+
+    public MainServlet() {}
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter()
+		.append("Hello Servlet");// 클라이언트로 text전송
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		doGet(request, response);
+	}
+
+}

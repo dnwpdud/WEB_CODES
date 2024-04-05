@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+	//한국어 인코딩
+	request.setCharacterEncoding("UTF-8");
+
+	session.setMaxInactiveInterval(30);
+	
+	// 입력된 값 가져오기
+	String id = request.getParameter("id");
+	String pw = request.getParameter("pw");
+	//id == "test" && pw == "1234"
+			
+	
+	if(id.equals("test") && pw == "1234"){
+		System.out.print("성공");
+		// 세션 생성
+		session.setAttribute("id", id);
+		session.setAttribute("pw", pw);
+		// 페이지 이동 링크
+		out.print("<script>location.href='HW3_login_result.jsp'</script><br>");
+	} else {
+		out.print("<p>실패<p>");
+		System.out.println(request.getParameter("id"));
+		System.out.println(request.getParameter("pw"));
+	}
+	
+	//else {
+		// 페이지 이동 링크
+		//out.print("<script>location.href='HW3.jsp'</script><br>");
+	//}
+	
+%>
+	
+	
+</body>
+</html>

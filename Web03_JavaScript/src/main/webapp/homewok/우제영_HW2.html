@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HW2</title>
+</head>
+<body>
+		<h1>연락처 프로그램</h1>
+		<p>이름 :</p>
+		<input type="text" id="inputname">
+		<p>전화번호 :</p>
+		<input type="text" id="inputphone">
+		<p>이메일 :</p>
+		<input type="text" id="inputemail">
+		<p>검색창 :</p>
+		<input type="text" id="input">
+		<button onclick="insert()">입력</button>
+		<button onclick="ALL()">전체 검색</button>
+		<button onclick="dele()">삭제</button>
+		
+		<div id = 'output'></div>
+		<script type="text/javascript">
+
+		let output = document.getElementById('output');
+		let name = document.getElementById('inputname').value;//value입력한 값을 가져온다.
+		let phone = document.getElementById('inputphone').value;//value입력한 값을 가져온다.
+		let email = document.getElementById('inputemail').value;//value입력한 값을 가져온다.
+		output.innerHTML += Person.VOtoString() + '<br>';
+		function Person(name, phone, email) {
+			this.name = name;
+			this.phone = phone;
+			this.email = email;
+		}
+		
+		output.innerHTML += '<hr>';
+	
+		function insert() {
+			let name = document.getElementById('inputname').value;//value입력한 값을 가져온다.
+			let phone = document.getElementById('inputphone').value;//value입력한 값을 가져온다.
+			let email = document.getElementById('inputemail').value;//value입력한 값을 가져온다.
+			
+			output.innerHTML = '로그' + '<br>';
+			let arr = new Person(name, phone, email);
+			console.log(arr);
+			console.log(typeof arr);
+			output.innerHTML += '등록 결과' + arr+ '<br>';
+			alert('입력 완료입니다.');
+		}
+		
+		function dele() {
+			let a = document.getElementById('input').value;
+			arr.delete(name);
+			console.log(arr);
+			console.log(typeof arr);
+			output.innerHTML += arr + '<br>';
+		}
+		function ALL(){
+			
+		}
+		
+		
+		</script>
+		
+</body>
+</html>

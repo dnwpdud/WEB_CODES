@@ -1,0 +1,36 @@
+<%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
+<%@page import="java.io.File"%>
+<%@page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String realPath = "";
+	String savePath = "images";
+	String type="utf-8";
+	int maxSize = 10 * 1024 * 1024;
+	
+	// 현재 애플리케이션 정보 저장
+	ServletContext context = request.getServletContext();
+	
+	// 실제 경로 확인 
+	realPath = context.getRealPath(savePath);
+	
+	out.println(realPath);
+	out.print("<hr>");
+	
+	
+	DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();// 어디에 파일 저장 경로? 코드
+	diskFileItemFactory.setRepository(new File(realPath));// 파일 저장
+	diskFileItemFactory.setSizeThreshold(maxSize);// 인계점
+	diskFileItemFactory.setDefaultCharset(type);// 문자들 집합???
+			
+	// 업로드 핸들러
+	ServletFileUpload fileUpload
+	= new ServletFileUpload(diskFileItemFactory);
+	
+	// request 정보를 가져와서 upload 형태에 맞게 파싱
+	
+	
+%>

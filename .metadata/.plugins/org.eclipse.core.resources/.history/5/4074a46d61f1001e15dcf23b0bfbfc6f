@@ -1,0 +1,11 @@
+package web.ch21.member;
+
+public class MemberVO {
+	private String userid;
+	private String password;
+	private String email;
+	private String emailAgree;
+	private String[] interest;
+	private String phone;
+	private String introduce;
+}// end MemberVO

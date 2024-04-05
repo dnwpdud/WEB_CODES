@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>test</title>
+</head>
+<body>
+
+	<button onclick="calculate()">구구단</button>
+	<button onclick="test()">별</button>
+	
+	<div id="output"></div>
+	<script type="text/javascript">
+	
+	let output = document.getElementById('output');
+	
+	//1. 구구단 출력 2 ~ 9단까지
+	function calculate(){
+		for(let i = 2; i <= 9; i++){
+			output.innerHTML += '<hr>';
+			for(let j = 1; j < 10; j++){
+				output.innerHTML += i + ' X ' + j + ' = ' + i * j + '<br>';
+			}	
+		}
+	}
+	
+	function test(){
+		for(let i = 0; i < 7; i++){
+			for(let j = 0; j < 7; j++){
+				if(i == 0 || i == 6 || j == 0 || j == 6 || i == j || i + j == 6){
+					output.innerHTML += '＊';
+				} else {
+					output.innerHTML += '　';
+				}
+			}
+			output.innerHTML += '<br>';
+		}
+	}// end test()
+	
+
+	
+	
+	</script>
+	<hr>
+</body>
+</html>

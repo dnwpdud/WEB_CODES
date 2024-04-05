@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Invalidate</title>
+</head>
+<body>
+	<h1>세션 속성(attribute)값 제거/invalidate(무효화)</h1>
+	
+
+</body>
+</html>

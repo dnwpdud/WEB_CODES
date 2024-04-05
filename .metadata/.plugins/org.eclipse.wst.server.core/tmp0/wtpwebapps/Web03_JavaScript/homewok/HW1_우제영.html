@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HW_1</title>
+</head>
+<body>
+	
+	<input type="text" id="input1">
+	<input type="text" id="input2">
+	<button onclick="add()">더하기</button>
+	<button onclick="sub()">빼기</button>
+	<button onclick="multi()">곱하기</button>
+	<button onclick="div()">나누기</button>
+	<button onclick="test">내용 초기화</button>
+	
+	<div id="output"></div>
+	<script type="text/javascript">
+		
+	function add(){
+		console.log('add() 출력');// 콘솔에 로그을 찍어야했다.
+		let output = document.getElementById('output');// 화면에 출력하는 역할
+		let x = document.getElementById('input1').value;// 입력한 값을 가져오기
+		let y = document.getElementById('input2').value;
+		
+		x = parseInt(x);
+		y = parseInt(y);
+		
+		console.log(x);
+		console.log(typeof x);
+		console.log(y);// 콘솔창에 입력값 띄는것
+		console.log(typeof y);// 콘솔창에 타입 띄는것
+		
+		let add = x + y;// 나머지 부호는 숫자에만 해당하기 때문에 자동으로 형 변환이 되지만
+		// + 는 숫자외에도 해당 되기 때문에 형 변환을 해주어야 한다.
+		output.innerHTML += x + '+' + y + '=' + add + '<br>';// 
+	}
+	
+	function sub(){
+		let output = document.getElementById('output');
+		let x = document.getElementById('input1').value;
+		let y = document.getElementById('input2').value;
+		console.log(x);
+		console.log(typeof x);
+		console.log(y);
+		console.log(typeof y);
+		
+		let sub = x - y;
+		output.innerHTML += 'sub = ' + sub + '<br>';
+	}
+	
+	function div(){
+		let output = document.getElementById('output');
+		let x = document.getElementById('input1').value;
+		let y = document.getElementById('input2').value;
+		console.log(x);
+		console.log(typeof x);
+		console.log(y);
+		console.log(typeof y);
+		
+		let div = x / y;
+		output.innerHTML += 'div = ' + div + '<br>';
+	}
+	
+	function multi(){
+		let output = document.getElementById('output');
+		let x = document.getElementById('input1').value;
+		let y = document.getElementById('input2').value;
+		console.log(x);
+		console.log(typeof x);
+		console.log(y);
+		console.log(typeof y);
+		
+		let multi = x * y;
+		output.innerHTML += 'multi = ' + multi + '<br>';
+	}
+	
+	function test(){
+		output.innerHTML = "";
+	}
+	
+	</script>
+	
+</body>
+</html>
