@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>글자 추천</title>
+</head>
+<body>
+	<h2>아래에 글을 입력해 주세요.</h2>
+	<p>
+		첫 글자 : <input type="text" id="txt" onkeyup="showHint(this.value)"> <!-- onkeyup 입력하는 동안 실시간으로 기능하는 키보드 이벤트 -->
+	</p>
+	<p>
+		추천 : <span id="txtHint"></span> <!-- 화면 보여주는 코드 -->
+	</p>
+	<script type="text/javascript">
+		function showHint(str) {
+			
+			// get 방식으로 04_get_hint.jsp 페이지에 데이터 전송하고
+			// 결과를 추천 span에 출력
+			console.log(str);
+			
+			if(str.length == 0){ // 입력 된값이 없으면 예외 처리하는 코드
+				document.getElementById("txtHint").innerHTML = ""; // "" 초기화 값
+				return;
+			}
+			
+			var xhttp = new XMLHttpRequest(); // 브라우저 내장 request 객체 
+	 		xhttp.onreadystatechange = function(){// onreadystatechange : 서버로부터 응답을 받거나 통신 상태가 변경될 때 호출되는 이벤트 핸들러입니다.
+	 			// readyState 속성이 변경될 때 호출할 함수를 정의
+	 			if(this.readyState == 4 && this.status == 200) {
+	 				// this.responseText : 응답 데이터를 문자열로 변환
+	 				console.log(this.responseText); // 로그 
+	 				document.getElementById("txtHint").innerHTML 
+	 				= this.responseText; // 추천 코드에 보여주는 역할 ex) 추천 코드 위에 있음
+	 				
+	 			}
+	 		}; 
+	 		
+	 		xhttp.open("GET","04_get_hint.jsp?str=" + str, true);
+	 		xhttp.send(); // 요청 코드
+		}
+	
+	</script>
+
+</body>
+</html>

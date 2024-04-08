@@ -56,7 +56,7 @@ public class UpdateServlet extends HttpServlet {
 		    
 		    vo = new MemberVO(userid, password, email, emailAgree
 					, interest, phone, introduce);
-		    
+		   
 			
 			int result = dao.update(userid, vo);
 			if(result == 1) {

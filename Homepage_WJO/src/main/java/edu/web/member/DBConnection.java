@@ -52,10 +52,11 @@ public interface DBConnection {
 	// "SELECT * FROM TEST_MEMBER 
 	// WHERE USERID = ? AND PASSWORD = ?"
 	public static final String SQL_LOGIN =
-	"SELECT * FROM " + TABLE_NAME + 
+	"SELECT " + COL_USERID + " FROM " + TABLE_NAME + 
 	" WHERE " + COL_USERID + " = ? " + "AND "
 	+ COL_PASSWORD + " = ?";
 	
 	// 강사님 코드는 * 되신 
 	// 전체 데이터을 검색 해서 확인 하고 가져오기 때문에 비효율적이다.
+	// 쿼리는 한번에 모아서 작성해도 될것같다.
 } // end DBConnection

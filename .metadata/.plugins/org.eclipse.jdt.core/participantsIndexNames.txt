@@ -23,6 +23,8 @@ C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jsp
 \Web06_JSP_Servlet\src\main\java
 C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3244558697.index
 \Homepage_WJO\src\main\java
+C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1149752381.index
+\Web08_Ajax\src\main\java
 C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2510766838.index
 \Jeyeong\src\main\java
 C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1355527444.index
@@ -50,4 +52,6 @@ C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jsp
 C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\547439003.index
 \Web06_JSP_Servlet\src\main\java
 C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1649943860.index
+\Web07_EL_JSTL\src\main\java
+C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2566535774.index
 \Web07_EL_JSTL\src\main\java

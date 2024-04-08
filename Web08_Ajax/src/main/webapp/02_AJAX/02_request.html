@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>XMLHttpRequest GET/POST</title>
+</head>
+<body>
+	<h2>XMLHttpRequest 요청</h2>
+	<button type="button" onclick="loadDocGet()">get 데이터 요청</button>
+	<button type="button" onclick="loadDocPost()">post 데이터 요청</button>
+
+	<p id="output"></p>
+	<script type="text/javascript">
+	 
+ 	function loadDocGet() {
+ 		var xhttp = new XMLHttpRequest(); // 브라우저 내장 request 객체
+ 		xhttp.onreadystatechange = function(){
+ 			// readyState 속성이 변경될 때 호출할 함수를 정의
+ 			if(this.readyState == 4 && this.status == 200) {
+ 				console.log(this);
+ 				document.getElementById("output").innerHTML
+ 					= this.responseText;
+ 				// this.responseText : 응답 데이터를 문자열로 변환
+ 			}
+ 		}; 
+ 		
+ 		xhttp.open("GET", "02_date.jsp?method=get&content=Hello", true);
+ 		xhttp.send();
+ 		
+ 	} // end loadDocGet()
+ 	
+ 	function loadDocPost() {
+ 		var xhttp = new XMLHttpRequest(); // 브라우저 내장 request 객체
+ 		xhttp.onreadystatechange = function(){
+ 			// readyState 속성이 변경될 때 호출할 함수를 정의
+ 			if(this.readyState == 4 && this.status == 200) {
+ 				console.log(this);
+ 				document.getElementById("output").innerHTML
+ 					= this.responseText;
+ 				// this.responseText : 응답 데이터를 문자열로 변환
+ 			}
+ 		}; 
+ 		
+ 		xhttp.open("POST", "02_date.jsp", true);
+ 		// 인코딩 역할
+ 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+ 		
+ 		xhttp.send("method=post&content=Hello");
+ 		
+ 	} // end loadDocGet()
+	</script>	
+
+</body>
+</html>
+

@@ -1,6 +1,0 @@
-package web.ch15.board;
-
-// 게시글 테이터(번호, 제목, 작성자, 작성일)를 전송하기 위한 Bean 클래스
-public class BoardBean {
-	private int no;// 번호
-}// end 
