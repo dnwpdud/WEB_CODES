@@ -15,7 +15,7 @@
 	
 	String result; // 상황에 맞게 저장
 	
-	if(str.charAt(0) == 'a'){ // 조건에 맞게 출력
+	if(str.charAt(0) == 'a'){ // 첫 단어 하나을 비교하여 조건에 맞게 출력
 		result = "apple";
 	} else if(str.charAt(0) == 'b'){
 		result = "banana";

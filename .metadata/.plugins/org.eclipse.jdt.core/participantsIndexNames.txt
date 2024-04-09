@@ -35,6 +35,8 @@ C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jsp
 \Homepage_MJH\src\main\java
 C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3467583671.index
 \Web06_JSP_Servlet\src\main\java
+C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2852031761.index
+\Web08_Ajax\src\main\java
 C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3077806099.index
 \Web06_JSP_Servlet\src\main\java
 C:\Users\sdedu\Desktop\WEB_CODES\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2912402749.index

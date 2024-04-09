@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<title>로그인 페이지</title>
+</head>
+<body>
+	<h1>로그인 페이지</h1>
+	<div>
+		아이디 : <input type="text" id ="userid"><br>
+		비밀번호 : <input type="password" id ="password"><br>
+		<button id ="loginBtn">로그인</button>
+	</div>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {// 출력 매소드
+			$('#loginBtn').click(function() {
+				console.log("클릭했냐?");
+				let userid = $('#userid').val(); // 아마도 함수을 실행할때 입력된 값을 VO처럼 저장되는 역할인것 같다.
+				let password = $('#password').val();
+				
+				let obj = {// 입력된값을 가져온다.
+						"userid" : userid,
+						"password" : password
+				};
+				
+				// ajax 요청 전송
+				$.ajax({ // 요청하는 타입 정해주기
+					type : 'post',
+					url : '../login.do',
+					data : {'obj' : JSON.stringify(obj)}, // JSON으로 변환 리퀘스트 형태로 간다.// 아마도 여기서 다음 경로로 이동 될것인거 같다.
+					success : function(result) {// result
+						if(result == 'success'){
+							alert('로그인 정보 일치');
+						} else {
+							alert('로그인 정보 불일치');
+						}
+					}
+					
+				}); // end ajax
+			});
+		});
+	
+	
+	</script>
+</body>
+</html>
