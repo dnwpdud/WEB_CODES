@@ -7,11 +7,15 @@
 </head>
 <body>
 	<h1>글자 추천</h1>
-	<div>
+	
+	<p>
 	검색 창 : <input type="text" id = "title">
+	
 	<button id ="loginBtn">전송</button><br>
+	
+	<p>
 	추천 : <span id="txtHint"></span> <!-- 화면 보여주는 코드 -->
-	</div>
+	</p>
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -28,8 +32,10 @@
 					type : 'post',
 					url : '../SearchServlet',
 					data : {'obj' : JSON.stringify(obj)} // 리쿼스트로 전송
+					success function(result) {
+						console.log(result);
+					}
 				});// end ajax
-				
 			});// end loginBtn
 		});// end document
 	

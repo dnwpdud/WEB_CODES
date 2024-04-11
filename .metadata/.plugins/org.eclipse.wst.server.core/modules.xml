@@ -11,6 +11,7 @@
   <module moduleId="org.eclipse.jst.jee.server:Homepage_WJO1" serverId="Tomcat v9.0 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Web01_HTML" serverId="Tomcat v9.0 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Web08_Ajax" serverId="Tomcat v9.0 Server at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:Web09_MVC" serverId="Tomcat v9.0 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Homepage_MJH" serverId="Tomcat v9.0 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Wet02_CSS" serverId="Tomcat v9.0 Server at localhost"/>
 </modules>

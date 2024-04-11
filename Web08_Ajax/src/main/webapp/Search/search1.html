@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+	<h1>글자 추천</h1>
+	
+	<p>
+	검색 창 : <input type="text" id = "txt">
+
+	<p>
+	추천 : <span id="txtHint"></span> <!-- 화면 보여주는 코드 -->
+	</p>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#txt').keyup(function() {
+				console.log("클릭완료");
+				let keyup = $('#txt').val();
+			
+				// ajax 요청 전송
+				$.ajax({ // 요청하는 타입 정해주기
+					type : 'get',
+					url : '../SearchServlet',
+					data : {'obj' : JSON.stringify(obj)} // 리쿼스트로 전송
+				});// end ajax
+			});// end loginBtn
+		});// end document
+	
+	</script>
+</body>
+</html>

@@ -26,7 +26,7 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String obj = request.getParameter("obj");
 		System.out.println(obj);
@@ -46,8 +46,6 @@ public class SearchServlet extends HttpServlet {
 				dao.select(title);
 				System.out.println(dao.select(title));
 			}
-			
-			
 		} catch (ParseException e) {
 			System.out.println("실패");
 			e.printStackTrace();
