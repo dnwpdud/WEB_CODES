@@ -3,11 +3,11 @@ package edu.web.domain;
 import java.util.Date;
 
 public class BoardVO {
-	private int boardId;
-	private String boardTitle;
-	private String boardContent;
-	private String memberId;
-	private Date boardDateCreated;
+		private int boardId;
+		private String boardTitle;
+		private String boardContent;
+		private String memberId;
+		private Date boardDateCreated;
 	
 	public BoardVO() {
 	}

@@ -21,7 +21,8 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
       }
       return instance;
    }
-
+   
+   // 등록
    @Override
    public int insert(BoardVO vo) {
       int result = 0;
@@ -34,8 +35,10 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
          pstmt.setString(1, vo.getBoardTitle());
          pstmt.setString(2, vo.getBoardContent());
          pstmt.setString(3, vo.getMemberId());
+       
          
          result = pstmt.executeUpdate();
+         
          System.out.println("insert 성공");
       } catch (Exception e) {
          e.printStackTrace();
@@ -46,16 +49,18 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
       
       return result;
    }
-
+   
+   // 전체검색
    @Override
    public List<BoardVO> select() {
       List<BoardVO> list = new ArrayList<>();
       Connection conn = null;
       PreparedStatement pstmt = null;
       ResultSet rs = null;
-      
+     
       try {
          conn = ConnMgr.getConnection();
+        
          pstmt = conn.prepareStatement(SQL_SELECT_ALL);
          
          rs = pstmt.executeQuery();
@@ -87,6 +92,7 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
       return list;
    }
 
+   // 검색
    @Override
    public BoardVO select(int boardId) {
       BoardVO vo = null;
@@ -117,6 +123,7 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
             vo = new BoardVO(boardId, boardTitle, boardContent, memberId, boardDateCreated);
 
          }
+
          System.out.println("select by board_id 성공");
          
       } catch (Exception e) {
@@ -127,7 +134,8 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
       
       return vo;
    }
-
+   
+   // 수정
    @Override
    public int update(BoardVO vo) {
       int result = 0;
@@ -152,7 +160,8 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
       
       return result;
    }
-
+   
+   // 삭제
    @Override
    public int delete(int boardId) {
       int result = 0;

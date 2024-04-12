@@ -16,7 +16,7 @@
   </filter>
   <filter-mapping>
   	<filter-name>char-filter</filter-name>
-  	<url-pattern>/*</url-pattern>
+  	<url-pattern>/Homepage_MJH/*</url-pattern>
   </filter-mapping>
   
   

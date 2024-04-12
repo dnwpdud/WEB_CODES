@@ -29,6 +29,7 @@ public class ConnMgr {
 		
 		Context initContext = new InitialContext();
 		Context envContext = (Context) initContext.lookup("java:comp/env"); // 경로
+		
 		DataSource ds = (DataSource) envContext.lookup("dbcp/orcl"); // 아이디을 통해 연결
 		
 		conn = ds.getConnection(); 

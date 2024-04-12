@@ -57,6 +57,7 @@
 	
 	</form>
 	
+	
 	<form action="memberResult.jsp" method="post">
 	<input type='submit' value='뒤로가기'><br>
 	</form>

@@ -19,8 +19,6 @@
     <fullyQualifiedTypeName name="javax.websocket.Session"/>
     <fullyQualifiedTypeName name="edu.web.member.MemberDAO"/>
     <fullyQualifiedTypeName name="edu.web.member.MemberDAOImple"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
-    <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
     <fullyQualifiedTypeName name="netscape.javascript.JSObject"/>
     <fullyQualifiedTypeName name="org.json.simple.JSONArray"/>
@@ -40,14 +38,18 @@
     <fullyQualifiedTypeName name="javax.naming.InitialContext"/>
     <fullyQualifiedTypeName name="javax.naming.Context"/>
     <fullyQualifiedTypeName name="javax.sql.DataSource"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="edu.web.persistence.BoardDAO"/>
     <fullyQualifiedTypeName name="edu.web.persistence.BoardQuery"/>
     <fullyQualifiedTypeName name="edu.web.dbcp.connmgr.ConnMgr"/>
-    <fullyQualifiedTypeName name="edu.web.domain.BoardVO"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.sql.Statement"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
+    <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
+    <fullyQualifiedTypeName name="edu.web.persistence.BoardDAO"/>
+    <fullyQualifiedTypeName name="edu.web.persistence.BoardDAOImple"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="edu.web.domain.BoardVO"/>
 </qualifiedTypeNameHistroy>
