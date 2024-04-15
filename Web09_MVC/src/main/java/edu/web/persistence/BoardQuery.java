@@ -48,6 +48,22 @@ public interface BoardQuery {
 			"DELETE " + TABLE_NAME + 
 			" WHERE " + COL_BOARD_ID + " = ?";
 	
+	// 게시글 페이징 처리
+	// SELECT * FROM(
+    // SELECT ROW_NUMBER() OVER (ORDER BY BOARD_ID DESC) AS RN, BOARD.* 
+    // FROM BOARD
+	// ) WHERE RN BETWEEN ? AND ?;
+	// 가상의 컬럼을 만들어서 특정순서(여기선 내림차순)에 맞게 정열 하는 쿼리 여기까지가 ()안의 내용
+	// " WHERE RN BETWEEN ? AND ?" 여기는 정리된 데이터을 페이지로 나누는 퀴리
+	   public static final String SQL_SELECT_PAGESCOPE = 
+			   "SELECT * FROM("
+				         + " SELECT ROW_NUMBER() OVER (ORDER BY BOARD_ID DESC) AS RN, BOARD.*"
+				         + " FROM BOARD"
+				         + ") WHERE RN BETWEEN ? AND ?";
+	   
+	   // SELECT COUNT(BOARD_ID) TOTAL_CNT FROM BOARD;
+	   public static final String SQL_TOTAL_CNT = 
+			   "SELECT COUNT(BOARD_ID) TOTAL_CNT FROM BOARD";
 }
 
 

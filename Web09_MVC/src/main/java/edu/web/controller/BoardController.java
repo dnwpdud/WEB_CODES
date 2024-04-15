@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import edu.web.domain.BoardVO;
 import edu.web.persistence.BoardDAO;
 import edu.web.persistence.BoardDAOImple;
+import edu.web.util.PageCriteria;
+import edu.web.util.PageMaker;
 
 @WebServlet("*.do") // *.do : ~.do로 선언된 HTTP 호출에 대해 반응
 public class BoardController extends HttpServlet {
@@ -77,14 +79,43 @@ public class BoardController extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("list()");
 
-		List<BoardVO> vo = dao.select();
+//		List<BoardVO> vo = dao.select(); // 전 전체 리스트 검색하는 코드 
 		
-		request.setAttribute("vo", vo);
+		String page = request.getParameter("page");
 		
-		String path = BOARD_URL + LIST + EXTENSION; // 페이지 이동
+		PageCriteria criteria = new PageCriteria();// vo에 등록된 시작과 끝 페이지 정했던 값을 가져오기위해 인스턴스 한 뜻
+		
+		if(page != null) { // null이 아니면 Parameter로 불러온 값을 int로 형 변환 // 그냥 예외 처리 장치 인뜻
+			criteria.setPage(Integer.parseInt(page));
+			System.out.println(criteria);
+		}
+		
+		List<BoardVO> vo = dao.select(criteria);
+		
+		String path = BOARD_URL + LIST + EXTENSION; // 페이지 이동 // 이런 방식으로 하면는 jsp 경로을 숨길수 있다. 그렇기 떄문에 무조건 서브릿을 거친다.
 		
 		RequestDispatcher dispatcher
 			= request.getRequestDispatcher(path);
+		
+		request.setAttribute("vo", vo); // 객체형태로 데이터 보내는 대적인 예시 // 왜 이게 여기 위치이지??
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		int totalCount = dao.getTotalCount();
+		pageMaker.setTotalCount(totalCount);
+		pageMaker.setPageData();
+		System.out.println("전체 게시글 수 : " + pageMaker.getTotalCount());
+		System.out.println("현재 선택된 페이지 : " + criteria.getPage());
+		System.out.println("한 페이지당 게시글 수 : " 
+				+ criteria.getNumsPerPage());
+		System.out.println("페이지 링크 번호 개수 : "
+				+ pageMaker.getNumsOfPageLinks());
+		System.out.println("시작 페이지 링크 번호 : " 
+				+ pageMaker.getStartPageNo());
+		System.out.println("끝 페이지 링크 번호 :"
+				+ pageMaker.getEndPageNo());
+		
+		request.setAttribute("pageMaker", pageMaker);
 		
 		dispatcher.forward(request, response); // jsp 경로을 우회적으로 불러오는 기능
 		
@@ -113,18 +144,24 @@ public class BoardController extends HttpServlet {
 			throws ServletException, IOException{
 		System.out.println("registerPOST()");
 
-		String boardTitle = request.getParameter("title");
-		String boardContent = request.getParameter("content");
-		String memberId = request.getParameter("author");
+		String boardTitle = request.getParameter("boardTitle");
+		String boardContent = request.getParameter("boardContent");
+		String memberId = request.getParameter("memberId");
+		
 		System.out.println(memberId);
 		
 		BoardVO vo = new BoardVO(0, boardTitle, boardContent, memberId, null);
+		System.out.println(vo);
 		
-		dao.insert(vo);
+		int result = dao.insert(vo);
+		System.out.println("결과 : " + result); // 잘 실행된는지 확인 // 이거 안했음 까먹었음 값이 바뀔때만다. 로그을 작성하는 해야한다.
 		
 		//registerGET(request, response);
 		
-		response.sendRedirect(MAIN + EXTENSION);
+		if(result == 1) { // 합번더 조건에 맞게 처리해서 오류 상황을 최대한 없애다.
+			response.sendRedirect(MAIN + EXTENSION);
+		}
+		
 
 	}// end registerPOST() 
 	
@@ -133,9 +170,10 @@ public class BoardController extends HttpServlet {
 			throws ServletException, IOException{ // 클라이언트에서 무엇 조야함??
 
 		System.out.println("detail()");
-		String result = request.getParameter("boardId");
-		int boardId = Integer.parseInt(result);
+		
+		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		//List<BoardVO> vo = (List<BoardVO>) dao.select(boardId);
+		System.out.println(boardId);
 		BoardVO vo = dao.select(boardId);
 		
 		request.setAttribute("vo", vo);
@@ -155,18 +193,18 @@ public class BoardController extends HttpServlet {
 			throws ServletException, IOException{
 		System.out.println("updateGET()");
 
-		
-		String result = request.getParameter("update");
-		int boardId = Integer.parseInt(result);
+		int boardId = Integer.parseInt(request.getParameter("update"));
 		
 		BoardVO vo = dao.select(boardId);
 		
-		request.setAttribute("vo", vo);
 		
 		String path = BOARD_URL + UPDATE + EXTENSION; // 페이지 이동
 		
 		RequestDispatcher dispatcher
-			= request.getRequestDispatcher(path);
+			= request.getRequestDispatcher(path);// 그냥 데이터 전송할때 이거 다음에 전송할 코드 놓자 궁금하면 나중에 알아보기
+		
+		request.setAttribute("vo", vo);
+		
 		
 		dispatcher.forward(request, response); // jsp 경로을 우회적으로 불러오는 기능
 		
@@ -178,30 +216,26 @@ public class BoardController extends HttpServlet {
 			throws ServletException, IOException{
 		System.out.println("updatePOST()");
 
-		
-		String result = request.getParameter("id");
-		String boardTitle = request.getParameter("title");
-		String boardContent = request.getParameter("content");
-		
-		int boardId = Integer.parseInt(result);
+		int boardId = Integer.parseInt(request.getParameter("boardId"));
+		String boardTitle = request.getParameter("boardTitle");
+		String boardContent = request.getParameter("boardContent");
 		
 		BoardVO vo = new BoardVO(boardId, boardTitle, boardContent, null, null);
 	
-		dao.update(vo);
+		int result = dao.update(vo);
+		System.out.println(result);
 		
-		BoardVO voSelect = (BoardVO) dao.select(boardId);
-		
-		request.setAttribute("vo", voSelect);
-		
+//		BoardVO voSelect = (BoardVO) dao.select(boardId); // 여기서 jsp로 가는것이 아니라 서브릿으로 갔으면은 보안도 좋아지고
+		// 구지 vo내용 전체을 전송할 필요도 없어 효율적이다.
+
 		//detail(request, response);
 		
-		String path = BOARD_URL + DETAIL + EXTENSION; // 페이지 이동
+		if(result == 1) {
+			String path = DETAIL + SERVER_EXTENSION; // 페이지 이동
+			
+			response.sendRedirect(path + "?boardId=" + boardId);// j쿼리을 사용해서 이동하는것을 생각도 못했고 어렵고 내가 아직 잘 못 한다.
+		}
 		
-		RequestDispatcher dispatcher
-		= request.getRequestDispatcher(path);
-	
-		dispatcher.forward(request, response); // jsp 경로을 우회적으로 불러오는 기능
-	
 		
 	}// end updatePOST()
 	
@@ -211,15 +245,14 @@ public class BoardController extends HttpServlet {
 			throws ServletException, IOException{
 		System.out.println("deletePOST()");
 		
+		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		
-		String result = request.getParameter("delete");
-		System.out.println(result);
-		int boardId = Integer.parseInt(result);
+		int result = dao.delete(boardId);
 		
-		dao.delete(boardId);
-
+		if(result == 1) {
+			response.sendRedirect(MAIN + EXTENSION);
+		}
 		
-		response.sendRedirect(MAIN + EXTENSION);
 	}// end deletePOST()
 
 } // end 
