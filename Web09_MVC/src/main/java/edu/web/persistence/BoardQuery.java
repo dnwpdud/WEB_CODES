@@ -64,6 +64,7 @@ public interface BoardQuery {
 	   // SELECT COUNT(BOARD_ID) TOTAL_CNT FROM BOARD;
 	   public static final String SQL_TOTAL_CNT = 
 			   "SELECT COUNT(BOARD_ID) TOTAL_CNT FROM BOARD";
+	   // 페이지의 총개수을 BOARD_ID 통해 알 수 있는 코드
 }
 
 

@@ -200,7 +200,8 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
 	         
 	         pstmt.setInt(1, criteria.getStart());
 	         pstmt.setInt(2, criteria.getEnd());
-	       
+	         
+	         // vo에 하드 코딩으로 제작 된 변수을 사용
 	         System.out.println(criteria.getStart());
 	         System.out.println(criteria.getEnd());
 	        
@@ -221,6 +222,7 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
 	            boardDateCreated = rs.getTimestamp(COL_BOARD_DATE_CREATED);
 	            vo = new BoardVO(boardId, boardTitle, boardContent, memberId, boardDateCreated);
 	            list.add(vo);
+	            System.out.println(list.add(vo)); // 그냥 전부 null값 나온다.
 	         }
 	         System.out.println("select page 성공");
 	         
@@ -234,7 +236,7 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
    }
 
    @Override
-   public int getTotalCount() {
+   public int getTotalCount() { // 페이지의 총개수을 알 수 있는 메소드
 	   int count = 0;
 	   
 	   Connection conn = null;

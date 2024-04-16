@@ -10,16 +10,6 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   
-<filter>
-    <filter-name>char-filter</filter-name>
-    <filter-class>edu.web.persistence.CharFilter</filter-class>
-</filter>
-
-<filter-mapping>
-    <filter-name>char-filter</filter-name>
-    <url-pattern>/*</url-pattern>
-    <url-pattern>/Web09_MVC/*</url-pattern>
-</filter-mapping>
 
 </web-app>
 

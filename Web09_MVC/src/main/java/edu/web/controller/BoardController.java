@@ -82,6 +82,7 @@ public class BoardController extends HttpServlet {
 //		List<BoardVO> vo = dao.select(); // 전 전체 리스트 검색하는 코드 
 		
 		String page = request.getParameter("page");
+		System.out.println(page); // null 나옴 위에 코드 왜 있지?? 그냥 예외 처리 장치인뜻
 		
 		PageCriteria criteria = new PageCriteria();// vo에 등록된 시작과 끝 페이지 정했던 값을 가져오기위해 인스턴스 한 뜻
 		
@@ -101,8 +102,8 @@ public class BoardController extends HttpServlet {
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCriteria(criteria);
-		int totalCount = dao.getTotalCount();
-		pageMaker.setTotalCount(totalCount);
+		int totalCount = dao.getTotalCount(); // 페이지의 총개수 
+		pageMaker.setTotalCount(totalCount);  // 페이지 총개수 vo TotalCount 변수에 저장
 		pageMaker.setPageData();
 		System.out.println("전체 게시글 수 : " + pageMaker.getTotalCount());
 		System.out.println("현재 선택된 페이지 : " + criteria.getPage());
@@ -192,11 +193,10 @@ public class BoardController extends HttpServlet {
 	private void updateGET(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 		System.out.println("updateGET()");
-
-		int boardId = Integer.parseInt(request.getParameter("update"));
+		System.out.println(request.getParameter("boardId"));
+		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		
 		BoardVO vo = dao.select(boardId);
-		
 		
 		String path = BOARD_URL + UPDATE + EXTENSION; // 페이지 이동
 		

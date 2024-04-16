@@ -1,4 +1,3 @@
-<%@page import="edu.web.domain.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,79 +6,201 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js">
 </script>
 <meta charset="UTF-8">
-<title>게시물 상세보기</title>
+<title>${vo.boardTitle }</title>
 </head>
 <body>
-    <% 
-    request.setCharacterEncoding("UTF-8");
-    BoardVO vo = (BoardVO) request.getAttribute("vo"); 
-    %>
-    <ul>
-        <li>
-            <strong>게시물 번호:</strong> <%= vo.getBoardId() %><br>
-            <strong>제목:</strong> <%= vo.getBoardTitle() %><br>
-            <strong>작성자:</strong> <%= vo.getMemberId() %><br>
-            <strong>작성일:</strong> <%= vo.getBoardDateCreated() %><br>
-            <strong>내용:</strong> <%= vo.getBoardContent() %><br>
-        </li>
-    </ul>
-    
- 
-    <form action="delete.do" method="post">
-    <!-- 숨은 입력 필드에 게시물 ID를 저장 -->
-    <input type="hidden" id="boardId" name="boardId" value="<%= vo.getBoardId() %>">
-    <!-- 삭제 버튼 -->
-    <button type="submit">글 삭제</button>
-	</form>
-	
-	  <!-- 수정 버튼 -->
-    <button onclick="location.href='update.do?update=<%= vo.getBoardId() %>'">글 수정</button>
-    
-    <!-- 돌아가기 버튼 -->
-    <button onclick="location.href='index.jsp'">돌아가기</button>
-    
-	<div style="text-align: center;">
-		<input type="text" id="memberId">
-		<input type="text" id="replyContent">
-		<button id ="btnAdd">작성</button>
-	</div>
-	<hr>
-	<div style="text-align: center;">
-		<div id="replies"></div>
-	</div>
-	
-	<div>
-		<br><br><br><br><br><br><br><br>
-	</div>
-	
-	<script type="text/javascript">
-	$(document).ready(function () {
-		$('#btnAdd').click(function () {
-			let boardId = $('#boardId').val(); // 게시판 번호 데이터
-			let memberId = $('#memberId').val(); // 작성자 데이터
-			let replyContent = $('#replyContent').val(); // 댓글 내용
-			let obj = {
-					'boardId' : boardId,
-					'memberId' : memberId,
-					'replyContent' : replyContent
-					
-			}; 
-			console.log(obj);
+   <h2>글 보기</h2>
+   <div>
+      <p>글 번호 : ${vo.boardId }</p>
+   </div>
+   <div>
+      <p>제목 : </p>
+      <p>${vo.boardTitle }</p>
+   </div>
+   <div>
+      <p>작성자 : ${vo.memberId }</p>
+      <p>작성일 : ${vo.boardDateCreated }</p>
+   </div>
+   <div>
+      <textarea rows="20" cols="120" readonly>${vo.boardContent }</textarea>
+   </div>
+   
+   <a href="index.jsp"><input type="button" value="글 목록"></a>
+   <a href="update.do?boardId=${vo.boardId}">
+   <input type="button" value="글 수정"></a>
+   
+   <form action="delete.do" method="POST">
+      <input type="hidden" id="boardId" name="boardId" value="${vo.boardId }">
+      <input type="submit" value="글 삭제">
+   </form>
+   
+   <div style="text-align: center;">
+      <input type="text" id="memberId">
+      <input type="text" id="replyContent">
+      <button id="btnAdd">작성</button>
+   </div>
+   <hr>
+   <div style="text-align: center;">
+      <div id="replies"></div>
+   </div>
+   
+   <div>
+      <br><br><br><br><br><br><br><br>
+   </div>
+   
+   <script type="text/javascript">
+      $(document).ready(function(){
+         getAllReplies(); // 함수 호출 코드 추가
+         
+         $('#btnAdd').click(function(){
+            let boardId = $('#boardId').val(); // 게시판 번호 데이터
+            let memberId = $('#memberId').val(); // 작성자 데이터
+            let replyContent = $('#replyContent').val(); // 댓글 내용
+            let obj = {
+                  'boardId' : boardId,
+                  'memberId' : memberId,
+                  'replyContent' : replyContent
+            };
+            console.log(obj);
+            
+            // $.ajax로 송수신
+            $.ajax({
+               type : 'POST', 
+               url : 'replies/add', 
+               data : {'obj' : JSON.stringify(obj)}, // JSON으로 변환
+               success : function(result) {
+                  console.log(result);
+                  if(result == 'success'){
+                	  alert('댓글 입력 성공');
+                	  getAllReplies();
+                  }
+               }
+            }); // end ajax()
+         }); // end btnAdd.click()
+         
+         
+         // 게시판 댓글 전체 가져오기
+         function getAllReplies() {
+            // 댓글을 가져오기 위해 boardId 필요
+            let boardId = $('#boardId').val();
+            
+            // url에 boardId 전송
+            let url = 'replies/all?boardId=' + boardId;
+            
+            // 가져올 데이터가 JSON이므로
+            // getJSON으로 파싱하는게 편리함
+            $.getJSON(
+               url, 
+               function(data) {
+                  // data : 서버에서 전송받은 list 데이터가 저장되어 있음.
+                  // getJSON()에서 json 데이터는
+                  // javascript object로 자동 parsing됨
+                  console.log(data);
+               
+               	  let list = ''; // 댓글 데이터를 HTML에 표현할 문자열 변수
+               	  // $(컬렉션).each() : 컬렉션 데이터를 반복문으로 꺼내는 함수
+               	  $(data).each(function() {
+						// this : 컬렉션의 각 인덱스 데이터를 의미
+						console.log(this);
+               	  		
+               	  		// string을 date 타입으로 변경
+               	  		let replyDateCreated = new Date(this.replyDateCreated)
+               	  		
+               	  	 list += '<div class="reply_item">'
+                         + '<pre>'
+                         + '<input type="hidden" id="replyId" value="' + this.replyId + '">'
+                         + this.memberId
+                         + '&nbsp;&nbsp;' // 공백
+                         + '<input type="text" id="replyContent" value="' + this.replyContent + '">'
+                         + '&nbsp;&nbsp;' // 공백
+                         + replyDateCreated 
+                         + '&nbsp;&nbsp;' // 공백
+                         + '<button class="btn_update">수정</button>'
+                         + '<button class="btn_delete">삭제</button>'
+                         + '</pre>'
+                         + '</div>';
+            }); // end each()
+					$('#replies').html(list);
+               }
+            ); // end getJSON
+            
+         } // end getAllReplies()
+         
+         
+         // 댓글 수정
+         $('#replies').on('click', '.reply_item .btn_update', function() {
+			console.log(this);
+			// this에 클릭한 요소 정보가 저장되어 있습니다.
 			
-			// $.ajax로 송수신
+			// 선택된 댓글의 replyId, replyContent 값을 저장
+			// prevAll() : 선택된 노드 이전에 있는 모든 형제 노드를 접근
+			
+			let replyId = $(this).prevAll('#replyId').val();
+			let replyContent = $(this).prevAll('#replyContent').val();
+			console.log("선택된 댓글 번호 : " + replyId + ", 댓글 내용 : " + replyContent);
+			
+			// ajax로 데이터 전송하여
+			// 댓글 수정 기능 수행하고
+			// 수행 결과를 리턴하는 코드
+			// ajax 요청
 			$.ajax({
 				type : 'POST',
-				url : 'replie/add',
-				data : {'obj' : JSON.stringify(obj)}, // JSON으로 변환 // obj이름
-				success : function(result){
+				url : 'replies/update',
+				data : {
+					'replyId' : replyId,
+					'replyContent' : replyContent
+				}, 
+				success : function(result) {
 					console.log(result);
+					if(result == 'success'){
+	                	  alert('댓글 입력 성공');
+	                	  getAllReplies();
+	                  }
 				}
-			});
-		}); // end btnAdd
-	});// end document
-</script>
+			}); // end ajax()
+		}); // end replies()
+      
+   // 댓글 삭제
+      $('#replies').on('click', '.reply_item .btn_delete', function() {
+			console.log(this);
+			// this에 클릭한 요소 정보가 저장되어 있습니다.
+			
+			// 선택된 댓글의 replyId, replyContent 값을 저장
+			// prevAll() : 선택된 노드 이전에 있는 모든 형제 노드를 접근
+			
+			let replyId = $(this).prevAll('#replyId').val();
+			console.log("선택된 댓글 번호 : " + replyId);
+			
+			// ajax로 데이터 전송하여
+			// 댓글 삭제 기능 수행하고
+			// 수행 결과를 리턴하는 코드
+			// ajax 요청
+			$.ajax({
+				type : 'POST',
+				url : 'replies/delete',
+				data : {
+					'replyId' : replyId,
+				}, 
+				success : function(result) {
+					console.log(result);
+					if(result == 'success'){
+	                	  alert('댓글 삭제 성공');
+	                	  getAllReplies();
+	                  }
+				}
+			}); // end ajax()
+		}); // end replies.on(delete)()
+   }); // end document 
+   </script>
 
-
-  
 </body>
 </html>
+
+
+
+
+
+
+
+
+
