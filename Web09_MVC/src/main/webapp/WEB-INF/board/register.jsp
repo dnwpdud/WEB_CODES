@@ -7,9 +7,7 @@
 <title>게시물 등록</title>
 </head>
 <body>
-	<%
-		request.setCharacterEncoding("UTF-8");
-	%>
+
     <form action="register.do" method="post">
         <label for="title">제목:</label>
         <input type="text" id="title" name="boardTitle"><br>

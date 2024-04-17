@@ -29,7 +29,6 @@ li {
 	<button onclick="location.href='register.do'">글 등록</button>
 	<hr>
     <%
-    	//request.setCharacterEncoding("UTF-8");
         List<BoardVO> voList = (List<BoardVO>) request.getAttribute("vo");
     %>
 
@@ -69,8 +68,6 @@ li {
 			<li><a href="list.do?page=${pageMaker.endPageNo + 1} ">다음</a></li>
 		</c:if>
     </ul>
-    
-    
 
 </body>
 </html>

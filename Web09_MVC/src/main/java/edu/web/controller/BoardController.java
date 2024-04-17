@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.web.domain.BoardVO;
 import edu.web.persistence.BoardDAO;
@@ -28,7 +29,7 @@ public class BoardController extends HttpServlet {
 	private static final String DELETE = "delete";
 	private static final String EXTENSION = ".jsp";
 	private static final String SERVER_EXTENSION = ".do";
-	
+	private static final String LOGIN = "login";
 	
 	private static BoardDAO dao;
 	
@@ -40,7 +41,7 @@ public class BoardController extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) 
     		throws ServletException, IOException {
-    	request.setCharacterEncoding("UTF-8");
+    	//request.setCharacterEncoding("UTF-8");
     	String requestURI = request.getRequestURI();
 		String requestMethod = request.getMethod();
 		System.out.println("호출 경로 : " + requestURI); // 여기 접속한 경로 이름
@@ -104,7 +105,7 @@ public class BoardController extends HttpServlet {
 		pageMaker.setCriteria(criteria);
 		int totalCount = dao.getTotalCount(); // 페이지의 총개수 
 		pageMaker.setTotalCount(totalCount);  // 페이지 총개수 vo TotalCount 변수에 저장
-		pageMaker.setPageData();
+		pageMaker.setPageData(); // 시간 저장
 		System.out.println("전체 게시글 수 : " + pageMaker.getTotalCount());
 		System.out.println("현재 선택된 페이지 : " + criteria.getPage());
 		System.out.println("한 페이지당 게시글 수 : " 
@@ -116,6 +117,7 @@ public class BoardController extends HttpServlet {
 		System.out.println("끝 페이지 링크 번호 :"
 				+ pageMaker.getEndPageNo());
 		
+		System.out.println(pageMaker);
 		request.setAttribute("pageMaker", pageMaker);
 		
 		dispatcher.forward(request, response); // jsp 경로을 우회적으로 불러오는 기능
@@ -126,6 +128,16 @@ public class BoardController extends HttpServlet {
 	private void registerGET(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 		System.out.println("registerGET");
+		
+		HttpSession session = request.getSession();
+		
+		String memberId = (String) session.getAttribute("memberId");
+		
+		if(memberId == null){
+			System.out.println("로그인 해주세요");
+			response.sendRedirect(BOARD_URL + LOGIN + EXTENSION);
+			//response.sendRedirect("/board/login.jsp");
+		}
 
 		String path = BOARD_URL + REGISTER + EXTENSION; // 페이지 이동
 		

@@ -222,7 +222,7 @@ public class BoardDAOImple implements BoardDAO, BoardQuery{
 	            boardDateCreated = rs.getTimestamp(COL_BOARD_DATE_CREATED);
 	            vo = new BoardVO(boardId, boardTitle, boardContent, memberId, boardDateCreated);
 	            list.add(vo);
-	            System.out.println(list.add(vo)); // 그냥 전부 null값 나온다.
+//	            System.out.println(list.add(vo)); // 그냥 전부 null값 나온다.
 	         }
 	         System.out.println("select page 성공");
 	         

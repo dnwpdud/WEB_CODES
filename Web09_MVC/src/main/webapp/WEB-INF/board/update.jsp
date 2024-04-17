@@ -9,7 +9,6 @@
 </head>
 <body>
 	 <% 
-	 	request.setCharacterEncoding("UTF-8");
 	 	BoardVO vo = (BoardVO) request.getAttribute("vo"); 
 	 %>
 	 

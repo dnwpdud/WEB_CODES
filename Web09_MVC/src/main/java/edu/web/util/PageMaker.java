@@ -51,7 +51,7 @@ public class PageMaker {
 	}
 	
 	// startPageNo, endPageNo, hasPrev, hasNext 값을 계산 및 세팅
-	public void setPageData() {
+	public void setPageData() {// ??? 뭐일까요~
 		int totalLinkNo = (int) Math.ceil((double) totalCount / criteria.getNumsPerPage());
 		int temp = (int) Math.ceil((double) criteria.getPage() / numsOfPageLinks) * numsOfPageLinks;
 		
