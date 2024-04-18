@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,8 @@ public class BoardController extends HttpServlet {
 	private static final String EXTENSION = ".jsp";
 	private static final String SERVER_EXTENSION = ".do";
 	private static final String LOGIN = "login";
+	private static final String LOGIN_URL = "WEB-INF/login/";
+	private static final String SERVER_EXTENSION_LOGIN = ".go";
 	
 	private static BoardDAO dao;
 	
@@ -129,25 +132,29 @@ public class BoardController extends HttpServlet {
 			throws ServletException, IOException{
 		System.out.println("registerGET");
 		
+		// 로그인 세션 체크
+		
 		HttpSession session = request.getSession();
 		
 		String memberId = (String) session.getAttribute("memberId");
-		
-		if(memberId == null){
+
+		if(memberId != null){ // 로그인 상태
+
+			String path = BOARD_URL + REGISTER + EXTENSION; // 페이지 이동
+			
+			RequestDispatcher dispatcher
+				= request.getRequestDispatcher(path);
+
+			dispatcher.forward(request, response); // jsp 경로을 우회적으로 불러오는 기능
+			
+//			response.sendRedirect(BOARD_URL + REGISTER + EXTENSION);
+		} else {
 			System.out.println("로그인 해주세요");
-			response.sendRedirect(BOARD_URL + LOGIN + EXTENSION);
+	
+			response.sendRedirect("login.go?targetURL=" + REGISTER + SERVER_EXTENSION);
 			//response.sendRedirect("/board/login.jsp");
-		}
-
-		String path = BOARD_URL + REGISTER + EXTENSION; // 페이지 이동
+		}// 로그아웃 상태
 		
-		RequestDispatcher dispatcher
-			= request.getRequestDispatcher(path);
-
-		dispatcher.forward(request, response); // jsp 경로을 우회적으로 불러오는 기능
-		
-		
-//		response.sendRedirect(BOARD_URL + REGISTER + EXTENSION);
 		
 	}// end registerGET()
 	

@@ -32,6 +32,7 @@ public class ReplyController extends HttpServlet {
     protected void service(HttpServletRequest request,
     		HttpServletResponse response) throws ServletException, IOException {
     	String requestURI = request.getRequestURI();
+    	System.out.println("댓글 service()");
     	System.out.println(requestURI);
     	
     	if(requestURI.contains("add")) {
@@ -93,10 +94,13 @@ public class ReplyController extends HttpServlet {
     		throws ServletException, IOException { // 예외 처리
 		System.out.println("replyList()");
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
-		List<ReplyVO> list = dao.select(boardId);
+		System.out.println(boardId);
 		
-		JSONArray jsonArray = new JSONArray();
-		for(int i = 0; i < list.size(); i++) {
+		List<ReplyVO> list = dao.select(boardId);// 해당 id 게시판에 있는 댓글 
+		
+		// 댓글 전부 출력
+		JSONArray jsonArray = new JSONArray(); // javaScript로 배열 형태로 데이터 전송(list 형태인지는 모르겠음)
+		for(int i = 0; i < list.size(); i++) { 
 			JSONObject jsonObject = new JSONObject();
 			ReplyVO vo = list.get(i);
 			jsonObject.put("replyId", vo.getReplyId());
@@ -108,7 +112,7 @@ public class ReplyController extends HttpServlet {
 		}
 		
 		System.out.println(jsonArray.toString());
-		response.getWriter().append(jsonArray.toJSONString());
+		response.getWriter().append(jsonArray.toJSONString()); // JSON으로 데이터 전송
 		// toString() or toJSONString 둘 다 됩니다.
 		
 	}

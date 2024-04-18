@@ -9,10 +9,14 @@
 <body>
 
     <form action="register.do" method="post">
+    
         <label for="title">제목:</label>
         <input type="text" id="title" name="boardTitle"><br>
+        
         <label for="author">작성자:</label>
-        <input type="text" id="author" name="boardContent"><br>
+        <input type="text" id="author" name="boardContent" 
+        value="${sessionScope.memberId }" readonly="readonly"><br>
+        
         <label for="content">내용:</label><br>
         <textarea id="content" name="memberId" rows="4" cols="50"></textarea><br>
         <button type="submit">등록</button>
